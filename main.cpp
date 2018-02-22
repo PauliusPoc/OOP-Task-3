@@ -46,6 +46,7 @@ double Suma(double egz, vector<double> varEil) {
     if(varEil.empty()) return 0.6 * egz;
     for (auto v:varEil) {
         suma += v;
+        n++;
     }
     return 0.4 * (suma / n) + (0.6 * egz);
 }
@@ -54,6 +55,7 @@ double Suma(double egz, double *&varEil, int &size) {
     int suma{}, n{};
     for (int i = 0; i < size; i++) {
         suma += varEil[i];
+        n++;
     }
     if(suma == 0) return 0.6 * egz;
     return 0.4 * (suma / n) + (0.6 * egz);
