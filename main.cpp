@@ -3,9 +3,11 @@
 #include <vector>
 #include <random>
 #include <chrono>
+#include <fstream>
+#include <algorithm>
 
 using std::cout; using std::cin; using std::endl; using std::string; using std::vector; using std::mt19937;
-using std::uniform_real_distribution;
+using std::uniform_real_distribution; using std::ifstream; using std::ofstream; using std::sort;
 
 double Mediana(double egz, double varEil[], int &size) {
 
@@ -136,19 +138,85 @@ void Auto(double &egzam, double *&pazym, int &size) {
     }
 }
 
-int main() {
-    cout << "Studento vardas:" << endl;
+struct Kolega {
     string vardas{};
-    cin >> vardas;
-    cout << "Studento pavarde:" << endl;
-    string pavarde{};
-    cin >> pavarde;
+    string pavard{};
+    vector<double> pazymiai{};
+    double galBalasV{};
+    double galBalasM{};
+    double egzam{};
+};
 
-    double egz{};
+void Nuskaitymas(vector<Kolega> &kolegos) {
+    double *p = new double[5], egzam;
+    vector<double> paz{};
+    string v, pa;
+    Kolega k{};
+    ifstream fd("kursiokai.txt");
 
-    cout << "Pasirinkite ivedimo tipo buda:\n Vektoriai -1\n Masyvas -2\n";
+    while (fd >> pa >> v >> p[0] >> p[1] >> p[2] >> p[3] >> p[4] >> egzam) {
+        k.vardas = v;
+        k.pavard = pa;
+        for (int i = 0; i < 5; i++) paz.push_back(p[i]);
+        k.pazymiai = paz;
+        paz.clear();
+        k.egzam = egzam;
+        kolegos.push_back(k);
+    }
+}
+
+bool KolegosCompareV(Kolega lhs, Kolega rhs) {
+    if (lhs.pavard <= rhs.pavard) {
+        if (lhs.pavard == rhs.pavard) {
+            if (lhs.vardas < rhs.vardas) return true;
+            else return false;
+        } else return true;
+    } else return false;
+}
+
+int main() {
+
+
+
+    cout << "Pasirinkite: \n1-Failo nuskaitymas\n 2-Ivedimas ranka";
     char pas{};
     cin >> pas;
+    if (pas != '1' & pas != '2'){
+        cout << "toks pasirinkimas negalimas\n";
+    }
+    if (pas == '1')
+    {
+        vector<Kolega> kolegos{};
+        Nuskaitymas(kolegos);
+        sort(kolegos.begin(), kolegos.end(), KolegosCompareV);
+        int dv = 6, dp = 7;
+        for (int i = 0; i < kolegos.size(); i++) {
+            if (kolegos[i].vardas.length() > dv) dv = kolegos[i].vardas.length();
+            if (kolegos[i].pavard.length() > dp) dp = kolegos[i].pavard.length();
+        }
+        ofstream fr("output.txt");
+        fr << std::left << std::setw(dp + 5) << "Pavarde" << std::setw(dv + 4) << "Vardas"
+           << std::setw(18 + 4) << "Galutinis-vidurkis" << std::setw(17 + 4) << "Galutinis-mediana" << endl;
+        for (auto k : kolegos) {
+            k.galBalasM = Mediana(k.egzam, k.pazymiai);
+            k.galBalasV = Suma(k.egzam, k.pazymiai);
+            fr << std::left << std::setw(dp + 4) << k.pavard << std::setw(dv + 4) << k.vardas
+                 << std::setprecision(2) << std::fixed << std::setw(18 + 4)
+                 << k.galBalasV << std::setw(17 + 3) << k.galBalasM << endl;
+        }
+    }
+    if (pas == '2'){
+        cout << "Studento vardas:" << endl;
+        string vardas{};
+        cin >> vardas;
+        cout << "Studento pavarde:" << endl;
+        string pavarde{};
+        cin >> pavarde;
+
+        double egz{};
+        cout << "Pasirinkite ivedimo tipo buda:\n Vektoriai -1\n Masyvas -2\n";
+
+        cin >> pas;
 
 
     if (pas == '1') {
@@ -210,6 +278,7 @@ int main() {
         }
         cout << "Egzamino pazimys: " << std::fixed << std::setprecision(2) << egz << endl;
         cout << "Galutinis pazimys: " << std::fixed << std::setprecision(2) << galBal << endl;
+    }
     }
 
     return 0;
