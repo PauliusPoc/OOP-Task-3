@@ -3,4 +3,4 @@ project(juxrvhtg)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(juxrvhtg main.cpp)
+add_executable(juxrvhtg main.cpp SkaiciavimoBudai.h SkaiciavimoBudai.cpp IvestiesMetodai.cpp IvestiesMetodai.h DarbasFailais.cpp DarbasFailais.h)
