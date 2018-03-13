@@ -28,7 +28,7 @@ struct Kolega {
 };
 
 void Isvestis(const vector<Kolega> &kolegos, size_t dv, size_t dp);
-void Nuskaitymas(vector<Kolega> &kolegos);
+void Nuskaitymas(vector<Kolega> &kolegos, const string &s);
 bool KolegosCompareV(Kolega lhs, Kolega rhs);
 
 #endif //JUXRVHTG_DARBASFAILAIS_H

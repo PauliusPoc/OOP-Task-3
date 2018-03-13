@@ -2,9 +2,11 @@
 #include "SkaiciavimoBudai.h";
 #include "IvestiesMetodai.h";
 #include "DarbasFailais.h";
+#include "Profiling.h";
 
 #include <algorithm>
 using std::sort;
+void Performance();
 
 int main() {
 
@@ -13,13 +15,13 @@ int main() {
     cout << "Pasirinkite: \n1-Failo nuskaitymas\n 2-Ivedimas ranka";
     char pas{};
     cin >> pas;
-    if (pas != '1' & pas != '2'){
+    if (pas != '1' & pas != '2' & pas != '3'){
         cout << "toks pasirinkimas negalimas\n";
     }
     if (pas == '1')
     {
         vector<Kolega> kolegos{};
-        Nuskaitymas(kolegos);
+        Nuskaitymas(kolegos, "kolegos.txt");
         sort(kolegos.begin(), kolegos.end(), KolegosCompareV);
         size_t dv = 6, dp = 7;
         for (auto &kolego : kolegos) {
@@ -27,6 +29,10 @@ int main() {
             if (kolego.pavard.length() > dp) dp = kolego.pavard.length();
         }
         Isvestis(kolegos, dv, dp);
+    }
+    if (pas == '3')
+    {
+        Performance();
     }
     if (pas == '2'){
         cout << "Studento vardas:" << endl;
@@ -105,6 +111,12 @@ int main() {
     }
 
     return 0;
+
+}
+
+void Performance(){
+    const unsigned int nTestu = 6; // kiek testų failų generuoti
+    StartTesting(nTestu);
 
 }
 
