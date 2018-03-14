@@ -4,10 +4,6 @@
 #include "DarbasFailais.h";
 #include "Profiling.h";
 
-#include <algorithm>
-using std::sort;
-void Performance();
-
 int main() {
 
 
@@ -32,7 +28,8 @@ int main() {
     }
     if (pas == '3')
     {
-        Performance();
+        const unsigned int nTestu = 6; // kiek testų failų generuoti
+        StartTesting(nTestu);
     }
     if (pas == '2'){
         cout << "Studento vardas:" << endl;
@@ -62,12 +59,17 @@ int main() {
 
         cout << "Pasirinkite skaiciavimo buda: \n Mediana-1\n Vidurkis-2\n";
         cin >> pas;
-        double galBal{};
+        double galBal{}; //galutinis studento balas
+
+        //SkaiciavimoBudai.cpp -----------------
+
         if (pas == '1') {
             galBal = Mediana(egz, pazymiai);
         } else if (pas == '2') {
             galBal = Suma(egz, pazymiai);
         }
+
+        //--------------------------------------
 
         cout << vardas << " " << pavarde << endl;
         cout << "Namu darbu pazymiai:\n";
@@ -79,31 +81,33 @@ int main() {
 
 
     } else if (pas == '2') {
-        auto *pazimiai = new double[1];
+        auto *pazymiai = new double[1];
         int size = 0;
 
         cout << "Pasirinkite ivedimo buda: \n AutoRandom-1\n Rankomis-2\n";
         cin >> pas;
         if (pas == '1') {
-            Auto(egz, pazimiai, size);
+            Auto(egz, pazymiai, size);
         } else if (pas == '2') {
 
-            Ivedimas(pazimiai, size, egz);
+            Ivedimas(pazymiai, size, egz);
         }
 
         cout << "Pasirinkite skaiciavimo buda: \n Mediana-1\n Vidurkis-2\n";
         cin >> pas;
+
+
         double galBal{};
         if (pas == '1') {
-            galBal = Mediana(egz, pazimiai, size);
+            galBal = Mediana(egz, pazymiai, size);
         } else if (pas == '2') {
-            galBal = Suma(egz, pazimiai, size);
+            galBal = Suma(egz, pazymiai, size);
         }
 
         cout << vardas << " " << pavarde << endl;
         cout << "Namu darbu pazymiai:\n";
         for (int i = 0; i < size; i++) {
-            cout << std::fixed << std::setprecision(2) << pazimiai[i] << endl;
+            cout << std::fixed << std::setprecision(2) << pazymiai[i] << endl;
         }
         cout << "Egzamino pazimys: " << std::fixed << std::setprecision(2) << egz << endl;
         cout << "Galutinis pazimys: " << std::fixed << std::setprecision(2) << galBal << endl;
@@ -114,11 +118,6 @@ int main() {
 
 }
 
-void Performance(){
-    const unsigned int nTestu = 6; // kiek testų failų generuoti
-    StartTesting(nTestu);
-
-}
 
 
 

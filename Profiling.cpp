@@ -2,6 +2,7 @@
 // Created by Acer on 2018-03-13.
 //
 
+
 #include "Profiling.h";
 
 using laikas = std::chrono::high_resolution_clock;
@@ -14,6 +15,8 @@ using std::endl;
 using std::cin;
 using std::string;
 using std::vector;
+using std::deque;
+using std::list;
 using std::sort;
 
 void StartTesting(const unsigned int nTestu) {
@@ -39,8 +42,14 @@ void StartTesting(const unsigned int nTestu) {
         goto  c2;
     }
 
-    for (unsigned int i = 1; i <= nTestu; i++)
+    for (unsigned int i = 1; i <= nTestu; i++){
         StartProfiling(i, pr, static_cast<unsigned int>(metod));
+        ListStartProfiling(i, pr, static_cast<unsigned int>(metod));
+        DequeStartProfiling(i, pr, static_cast<unsigned int>(metod));
+        pr << endl << endl << endl;
+    }
+
+
 }
 void StartProfiling(unsigned int n, ofstream &pr, const unsigned int met) {
 
@@ -59,22 +68,22 @@ void StartProfiling(unsigned int n, ofstream &pr, const unsigned int met) {
         std::terminate();
     }
 
-    pr << "------------------------------------------------------------------------------------" << endl;
+    pr << "-------------------------------VECTOR-----------------------------------------------" << endl;
     pr << "Dirbame su " + std::to_string(dydis) + " įrašų" << endl;
 
-    auto start = laikas::now();
+    //auto start = laikas::now();
     GeneruokTestui(dydis, fk);
+    //auto end = laikas::now();
+    //std::chrono::duration<double> diff = end - start;
+    //auto grandTotal = diff;
+    //pr <<"Generavimas užtruko  "<< (diff).count()<<" s."<<endl;
+
+    auto start = laikas::now(); //delete auto if uncommented above
+    Nuskaitymas(kolegos, fi);
     auto end = laikas::now();
     std::chrono::duration<double> diff = end - start;
-    auto grandTotal = diff;
-    pr <<"Generavimas užtruko  "<< (diff).count()<<" s."<<endl;
-
-    start = laikas::now();
-    Nuskaitymas(kolegos, fi);
-    end = laikas::now();
-    diff = end - start;
     pr <<"Nuskaitymas užtruko  "<< (diff).count()<<" s."<<endl;
-    grandTotal += diff;
+    auto grandTotal = diff;
 
     start = laikas::now();
     ArKietas(kolegos,geek,los, met == 1);
@@ -86,9 +95,11 @@ void StartProfiling(unsigned int n, ofstream &pr, const unsigned int met) {
     pr <<"Iš viso:  "<< (grandTotal).count()<<" s."<<endl;
 
 
-    pr << "------------------------------------------------------------------------------------" << endl;
+    pr << "------------------------------------------------------------------------------------" << endl << endl;
 
 }
+
+
 
 void GeneruokTestui(unsigned int n, ofstream &fk) {
     mt19937 mt(static_cast<long unsigned int>(std::chrono::_V2::system_clock::now().time_since_epoch().count()));
@@ -122,3 +133,111 @@ void ArKietas(vector<Kolega> &koleg, vector<Kolega> &geek, vector<Kolega> &lose,
         }
     }
 }
+
+void ListArKietas(list<Kolega> &koleg, list<Kolega> &geek, list<Kolega> &lose, bool arVidurkiu) {
+
+    for (auto &k : koleg){
+        if (arVidurkiu){
+            double suma{};
+            for (auto paz : k.pazymiai)
+                suma += paz;
+            if(suma / k.pazymiai.size() >= 6.0) geek.push_back(k);
+            else lose.push_back(k);
+        } else{
+            double med{};
+            sort(k.pazymiai.begin(), k.pazymiai.end());
+            med = k.pazymiai.size() % 2 == 0 ? (k.pazymiai[k.pazymiai.size() / 2] + k.pazymiai[k.pazymiai.size() / 2 - 1]) / 2
+                                             : k.pazymiai[k.pazymiai.size() / 2];
+
+            if(med >= 6) geek.push_back(k);
+            else lose.push_back(k);
+        }
+    }
+}
+
+void DequeArKietas(deque<Kolega> &koleg, deque<Kolega> &geek, deque<Kolega> &lose, bool arVidurkiu) {
+
+    for (auto &k : koleg){
+        if (arVidurkiu){
+            double suma{};
+            for (auto paz : k.pazymiai)
+                suma += paz;
+            if(suma / k.pazymiai.size() >= 6.0) geek.push_back(k);
+            else lose.push_back(k);
+        } else{
+            double med{};
+            sort(k.pazymiai.begin(), k.pazymiai.end());
+            med = k.pazymiai.size() % 2 == 0 ? (k.pazymiai[k.pazymiai.size() / 2] + k.pazymiai[k.pazymiai.size() / 2 - 1]) / 2
+                                             : k.pazymiai[k.pazymiai.size() / 2];
+
+            if(med >= 6) geek.push_back(k);
+            else lose.push_back(k);
+        }
+    }
+}
+
+void ListStartProfiling(unsigned int n, ofstream &pr, const unsigned int met) {
+
+    list<Kolega> kolegos, geek, los;
+    auto dydis = (unsigned int)std::pow(10,n);
+    string fi = "perf" + std::__cxx11::to_string(dydis) + "_IN.txt";
+    string fo = "perf" + std::__cxx11::to_string(dydis) + "_OUT.txt";
+
+    pr << "------------------------------------LIST--------------------------------------------" << endl;
+    pr << "Dirbame su " + std::to_string(dydis) + " įrašų" << endl;
+    
+    auto start = laikas::now();
+    ListNuskaitymas(kolegos, fi);
+    auto end = laikas::now();
+    std::chrono::duration<double> diff = end - start;
+    pr <<"Nuskaitymas užtruko  "<< (diff).count()<<" s."<<endl;
+    auto grandTotal = diff;
+
+    start = laikas::now();
+    ListArKietas(kolegos,geek,los, met == 1);
+    end = laikas::now();
+    diff = end - start;
+    pr <<"Rūšiavimas užtruko  "<< (diff).count()<<" s."<<endl;
+    grandTotal += diff;
+
+    pr <<"Iš viso:  "<< (grandTotal).count()<<" s."<<endl;
+
+
+    pr << "------------------------------------------------------------------------------------" << endl << endl;
+
+}
+
+void DequeStartProfiling(unsigned int n, ofstream &pr, const unsigned int met) {
+
+    deque<Kolega> kolegos, geek, los;
+    auto dydis = (unsigned int)std::pow(10,n);
+    string fi = "perf" + std::__cxx11::to_string(dydis) + "_IN.txt";
+    string fo = "perf" + std::__cxx11::to_string(dydis) + "_OUT.txt";
+
+
+    pr << "------------------------------------DEQUE-------------------------------------------" << endl;
+    pr << "Dirbame su " + std::to_string(dydis) + " įrašų" << endl;
+
+    auto start = laikas::now();
+    DequeNuskaitymas(kolegos, fi);
+    auto end = laikas::now();
+    std::chrono::duration<double> diff = end - start;
+    pr <<"Nuskaitymas užtruko  "<< (diff).count()<<" s."<<endl;
+    auto grandTotal = diff;
+
+    start = laikas::now();
+    DequeArKietas(kolegos,geek,los, met == 1);
+    end = laikas::now();
+    diff = end - start;
+    pr <<"Rūšiavimas užtruko  "<< (diff).count()<<" s."<<endl;
+    grandTotal += diff;
+
+    pr <<"Iš viso:  "<< (grandTotal).count()<<" s."<<endl;
+
+
+    pr << "------------------------------------------------------------------------------------" << endl << endl;
+
+}
+
+
+

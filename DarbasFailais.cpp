@@ -15,12 +15,25 @@ void Isvestis(const vector<Kolega> &kolegos, size_t dv, size_t dp) {
     }
 }
 
-/*void Nuskaitymas(vector<Kolega> &kolegos) {
+
+void Nuskaitymas(vector<Kolega> &kolegos, const string &s) {
     double *p = new double[5], egzam;
     vector<double> paz{};
     string v, pa;
     Kolega k{};
-    ifstream fd("kursiokai.txt");
+    ifstream fd;
+
+    try {
+        fd.open( s, std::ios::in);
+        if (!fd.good()) throw "Error opening file";
+    } catch (string &e){
+        cout << e << endl;
+        return;
+    }catch (char const* e){
+        cout << "Duomenu failas neegzistuoja" << endl;
+        return;
+    }
+
 
     while (fd >> pa >> v >> p[0] >> p[1] >> p[2] >> p[3] >> p[4] >> egzam) {
         k.vardas = v;
@@ -31,9 +44,39 @@ void Isvestis(const vector<Kolega> &kolegos, size_t dv, size_t dp) {
         k.egzam = egzam;
         kolegos.push_back(k);
     }
-}*/
+}
 
-void Nuskaitymas(vector<Kolega> &kolegos, const string &s) {
+void ListNuskaitymas(list<Kolega> &kolegos, const string &s) {
+    double *p = new double[5], egzam;
+    vector<double> paz{};
+    string v, pa;
+    Kolega k{};
+    ifstream fd;
+
+    try {
+        fd.open( s, std::ios::in);
+        if (!fd.good()) throw "Error opening file";
+    } catch (string &e){
+        cout << e << endl;
+        return;
+    }catch (char const* e){
+        cout << "Duomenu failas neegzistuoja" << endl;
+        return;
+    }
+
+
+    while (fd >> pa >> v >> p[0] >> p[1] >> p[2] >> p[3] >> p[4] >> egzam) {
+        k.vardas = v;
+        k.pavard = pa;
+        for (int i = 0; i < 5; i++) paz.push_back(p[i]);
+        k.pazymiai = paz;
+        paz.clear();
+        k.egzam = egzam;
+        kolegos.push_back(k);
+    }
+}
+
+void DequeNuskaitymas(deque<Kolega> &kolegos, const string &s) {
     double *p = new double[5], egzam;
     vector<double> paz{};
     string v, pa;

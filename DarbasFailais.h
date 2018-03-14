@@ -1,6 +1,3 @@
-//
-// Created by Acer on 2018-03-13.
-//
 
 #ifndef JUXRVHTG_DARBASFAILAIS_H
 #define JUXRVHTG_DARBASFAILAIS_H
@@ -11,12 +8,16 @@
 #include <iostream>
 #include <iomanip>
 #include <fstream>
+#include <deque>
+#include <list>
 
 
 
 using std::vector;
-using std::cout; using std::cin; using std::endl; using std::string;
+using std::cout; using std::cin; using std::endl;
+using std::string;
 using std::ifstream; using std::ofstream;
+using std::list; using std::deque;
 
 struct Kolega {
     string vardas{};
@@ -29,6 +30,8 @@ struct Kolega {
 
 void Isvestis(const vector<Kolega> &kolegos, size_t dv, size_t dp);
 void Nuskaitymas(vector<Kolega> &kolegos, const string &s);
+void ListNuskaitymas(list<Kolega> &kolegos, const string &s);
+void DequeNuskaitymas(deque<Kolega> &kolegos, const string &s);
 bool KolegosCompareV(Kolega lhs, Kolega rhs);
 
 #endif //JUXRVHTG_DARBASFAILAIS_H
