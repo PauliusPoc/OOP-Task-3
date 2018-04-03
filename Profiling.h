@@ -5,7 +5,7 @@
 #ifndef JUXRVHTG_PROFILING_H
 #define JUXRVHTG_PROFILING_H
 
-#include "DarbasFailais.h";
+#include "DarbasFailais.h"
 
 #include <random>
 #include <chrono>

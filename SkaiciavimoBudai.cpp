@@ -1,4 +1,4 @@
-#include "SkaiciavimoBudai.h";
+#include "SkaiciavimoBudai.h"
 
 double Mediana(double egz, double varEil[], int &size) {
     sort(varEil, varEil + size);

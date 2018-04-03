@@ -1,14 +1,14 @@
 
-#include "SkaiciavimoBudai.h";
-#include "IvestiesMetodai.h";
-#include "DarbasFailais.h";
-#include "Profiling.h";
+#include "SkaiciavimoBudai.h"
+#include "IvestiesMetodai.h"
+#include "DarbasFailais.h"
+#include "Profiling.h"
 
 int main() {
 
 
 
-    cout << "Pasirinkite: \n1-Failo nuskaitymas\n 2-Ivedimas ranka";
+    cout << "Pasirinkite: \n1-Failo nuskaitymas\n 2-Ivedimas ranka\n 3-Generavimas/profiliavimas";
     char pas{};
     cin >> pas;
     if (pas != '1' & pas != '2' & pas != '3'){

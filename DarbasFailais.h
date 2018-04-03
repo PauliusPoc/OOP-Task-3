@@ -2,7 +2,7 @@
 #ifndef JUXRVHTG_DARBASFAILAIS_H
 #define JUXRVHTG_DARBASFAILAIS_H
 
-#include "SkaiciavimoBudai.h";
+#include "SkaiciavimoBudai.h"
 
 #include <vector>
 #include <iostream>

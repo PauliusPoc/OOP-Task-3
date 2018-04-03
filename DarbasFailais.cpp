@@ -1,5 +1,5 @@
 
-#include "DarbasFailais.h";
+#include "DarbasFailais.h"
 
 
 void Isvestis(const vector<Kolega> &kolegos, size_t dv, size_t dp) {

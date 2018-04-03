@@ -3,7 +3,7 @@
 //
 
 
-#include "Profiling.h";
+#include "Profiling.h"
 
 using laikas = std::chrono::high_resolution_clock;
 using ns = std::chrono::microseconds;
@@ -51,6 +51,10 @@ void StartTesting(const unsigned int nTestu) {
 
 
 }
+
+bool RibaV (Kolega& val);
+bool RibaM (Kolega& val);
+
 void StartProfiling(unsigned int n, ofstream &pr, const unsigned int met) {
 
     vector<Kolega> kolegos, geek, los;
@@ -120,8 +124,10 @@ void ArKietas(vector<Kolega> &koleg, vector<Kolega> &geek, vector<Kolega> &lose,
             double suma{};
             for (auto paz : k.pazymiai)
                 suma += paz;
-            if(suma / k.pazymiai.size() >= 6.0) geek.push_back(k);
-            else lose.push_back(k);
+            if(suma / k.pazymiai.size() >= 6.0){
+                geek.push_back(k);
+            }
+            //else lose.push_back(k);
         } else{
             double med{};
             sort(k.pazymiai.begin(), k.pazymiai.end());
@@ -129,49 +135,67 @@ void ArKietas(vector<Kolega> &koleg, vector<Kolega> &geek, vector<Kolega> &lose,
                                             : k.pazymiai[k.pazymiai.size() / 2];
 
             if(med >= 6) geek.push_back(k);
-            else lose.push_back(k);
+            //else lose.push_back(k);
         }
+        if (arVidurkiu) koleg.erase(std::remove_if(koleg.begin(), koleg.end(), RibaV), koleg.end());
+        else koleg.erase(std::remove_if(koleg.begin(), koleg.end(), RibaM), koleg.end());
     }
 }
 
 void ListArKietas(list<Kolega> &koleg, list<Kolega> &geek, list<Kolega> &lose, bool arVidurkiu) {
-
-    for (auto &k : koleg){
+    auto k = koleg.begin();
+    while(k != koleg.end()){
         if (arVidurkiu){
             double suma{};
-            for (auto paz : k.pazymiai)
+            for (auto paz : k->pazymiai)
                 suma += paz;
-            if(suma / k.pazymiai.size() >= 6.0) geek.push_back(k);
-            else lose.push_back(k);
+            if(suma / k->pazymiai.size() >= 6.0){
+                geek.push_back(*k);
+                k = koleg.erase(k);
+            }
+            //else lose.push_back(k);
+            else k++;
         } else{
             double med{};
-            sort(k.pazymiai.begin(), k.pazymiai.end());
-            med = k.pazymiai.size() % 2 == 0 ? (k.pazymiai[k.pazymiai.size() / 2] + k.pazymiai[k.pazymiai.size() / 2 - 1]) / 2
-                                             : k.pazymiai[k.pazymiai.size() / 2];
+            sort(k->pazymiai.begin(), k->pazymiai.end());
+            med = k->pazymiai.size() % 2 == 0 ? (k->pazymiai[k->pazymiai.size() / 2] + k->pazymiai[k->pazymiai.size() / 2 - 1]) / 2
+                                             : k->pazymiai[k->pazymiai.size() / 2];
 
-            if(med >= 6) geek.push_back(k);
-            else lose.push_back(k);
+            if(med >= 6){
+                geek.push_back(*k);
+                k = koleg.erase(k);
+            }
+            //else lose.push_back(k);
+            else k++;
         }
     }
 }
 
 void DequeArKietas(deque<Kolega> &koleg, deque<Kolega> &geek, deque<Kolega> &lose, bool arVidurkiu) {
 
-    for (auto &k : koleg){
+    for (unsigned int i = 0; i < koleg.size(); i++) {
+        Kolega *k = &koleg[i];
         if (arVidurkiu){
             double suma{};
-            for (auto paz : k.pazymiai)
+            for (auto paz : k->pazymiai)
                 suma += paz;
-            if(suma / k.pazymiai.size() >= 6.0) geek.push_back(k);
-            else lose.push_back(k);
+            if(suma / k->pazymiai.size() >= 6.0){
+                geek.push_back(*k);
+                koleg.erase(koleg.begin() + i);
+            }
+            //else lose.push_back(k);
         } else{
             double med{};
-            sort(k.pazymiai.begin(), k.pazymiai.end());
-            med = k.pazymiai.size() % 2 == 0 ? (k.pazymiai[k.pazymiai.size() / 2] + k.pazymiai[k.pazymiai.size() / 2 - 1]) / 2
-                                             : k.pazymiai[k.pazymiai.size() / 2];
+            sort(k->pazymiai.begin(), k->pazymiai.end());
+            med = k->pazymiai.size() % 2 == 0 ? (k->pazymiai[k->pazymiai.size() / 2] + k->pazymiai[k->pazymiai.size() / 2 - 1]) / 2
+                                             : k->pazymiai[k->pazymiai.size() / 2];
 
-            if(med >= 6) geek.push_back(k);
-            else lose.push_back(k);
+            if(med >= 6) {
+                geek.push_back(*k);
+                koleg.erase(koleg.begin() + i);;
+            }
+            //else lose.push_back(k);
+
         }
     }
 }
@@ -237,6 +261,13 @@ void DequeStartProfiling(unsigned int n, ofstream &pr, const unsigned int met) {
 
     pr << "------------------------------------------------------------------------------------" << endl << endl;
 
+}
+
+bool RibaV (Kolega& val) {
+    return val.galBalasV >= 6.0;
+}
+bool RibaM (Kolega& val) {
+    return val.galBalasM >= 6.0;
 }
 
 
