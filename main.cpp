@@ -28,7 +28,7 @@ int main() {
     }
     if (pas == '3')
     {
-        const unsigned int nTestu = 6; // kiek testų failų generuoti
+        const unsigned int nTestu = 5; // kiek testų failų generuoti
         StartTesting(nTestu);
     }
     if (pas == '2'){
