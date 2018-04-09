@@ -197,5 +197,5 @@ n - duomenų skaičius
 ## *Pridėta*
 - Ištaisyta žiopla klaida Suma funkcijose (pridėtos ``` n++; ``` eilutės, kad skaičiavimai veiktų).
 
-# [Changelog v0.1 (2018-02-21)(https://github.com/paulyskas/OOP-Task-2/releases/tag/v0.1)
+# [Changelog v0.1 (2018-02-21)](https://github.com/paulyskas/OOP-Task-2/releases/tag/v0.1)
 
