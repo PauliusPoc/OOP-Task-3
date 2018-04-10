@@ -59,7 +59,7 @@ Process finished with exit code 0
 - `cd OOP Task 2`
 - `cmake . -G "MinGW Makefiles"`
 - `mingw32-make`
-- `.\OOP Task 2`
+- `.\juxrvhtg`
 
 ### Programos veikimo sparta aprašyta v1.0.1 bei v0.5 changeloguose (žemiau)
 
