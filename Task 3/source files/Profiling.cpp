@@ -3,7 +3,7 @@
 //
 
 
-#include "Profiling.h"
+#include "../headers/Profiling.h"
 
 
 using laikas = std::chrono::high_resolution_clock;
@@ -64,16 +64,23 @@ void StartTesting(const unsigned int nTestu) {
 
 }
 
-void GeneruokTestui(unsigned int n, ofstream &fk) {
+void GeneruokTestui(unsigned int n) {
     mt19937 mt(static_cast<long unsigned int>(std::chrono::_V2::system_clock::now().time_since_epoch().count()));
     uniform_int_distribution<int> dist(1, 10);
+    unsigned int dydis {};
 
-    for (unsigned int i = 1; i <= n; i++){
-        fk << "Vardas" + std::__cxx11::to_string(i) << " Pavarde" + std::__cxx11::to_string(i);
-        for (int j = 0; j < 6; j++){
-            fk << " " <<  std::__cxx11::to_string(dist(mt));
+    for (int k = 1; k <= n ; k++){
+        dydis = (unsigned int)std::pow(10,k);
+        string fi = "perf" + std::__cxx11::to_string(dydis) + "_IN.txt";
+        ofstream fk (fi);
+        for (unsigned int i = 1; i <= dydis; i++){
+            fk << "Vardas" + std::__cxx11::to_string(i) << " Pavarde" + std::__cxx11::to_string(i);
+            for (int j = 0; j < 6; j++){
+                fk << " " <<  std::__cxx11::to_string(dist(mt));
+            }
+            fk << endl;
         }
-        fk << endl;
+        fk.close();
     }
 }
 
@@ -122,7 +129,7 @@ void StartProfiling(unsigned int n, ofstream &pr, const unsigned int met) {
     pr << "Dirbame su " + std::to_string(dydis) + " įrašų" << endl;
 
     //auto start = laikas::now();
-    GeneruokTestui(dydis, fk);
+    //GeneruokTestui(dydis, fk);
     //auto end = laikas::now();
     //std::chrono::duration<double> diff = end - start;
     //auto grandTotal = diff;
@@ -321,7 +328,7 @@ void NStartProfiling(unsigned int n, ofstream &pr, const unsigned int met) {
     pr << "Dirbame su " + std::to_string(dydis) + " įrašų" << endl;
 
     //auto start = laikas::now();
-    GeneruokTestui(dydis, fk);
+    //GeneruokTestui(dydis, fk);
     //auto end = laikas::now();
     //std::chrono::duration<double> diff = end - start;
     //auto grandTotal = diff;

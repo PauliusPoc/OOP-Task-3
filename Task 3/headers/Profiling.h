@@ -32,7 +32,7 @@ void NStartProfiling(unsigned int n, ofstream &pr, const unsigned int met);
 void NListStartProfiling(unsigned int n, ofstream &pr, unsigned int met);
 void NDequeStartProfiling(unsigned int n, ofstream &pr, unsigned int met);
 
-void GeneruokTestui(unsigned int n, ofstream &fk);
+void GeneruokTestui(unsigned int n);
 void StartTesting(const unsigned int nTestu);
 
 #endif //JUXRVHTG_PROFILING_H

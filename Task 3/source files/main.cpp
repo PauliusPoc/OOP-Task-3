@@ -1,35 +1,27 @@
 
-#include "SkaiciavimoBudai.h"
-#include "IvestiesMetodai.h"
-#include "DarbasFailais.h"
-#include "Profiling.h"
+#include "../headers/SkaiciavimoBudai.h"
+#include "../headers/IvestiesMetodai.h"
+#include "../headers/DarbasFailais.h"
+#include "../headers/Profiling.h"
 
 int main() {
 
 
 
-    cout << "Pasirinkite: \n1-Failo nuskaitymas\n 2-Ivedimas ranka\n 3-Generavimas/profiliavimas";
+    cout << "Pasirinkite: \n1-Failo generavimas\n 2-Profiliavimas\n";
     char pas{};
     cin >> pas;
-    if (pas != '1' & pas != '2' & pas != '3'){
+    if (pas != '1' & pas != '2'){
         cout << "toks pasirinkimas negalimas\n";
     }
     if (pas == '1')
     {
-        vector<Kolega> kolegos{};
-        Nuskaitymas(kolegos, "kolegos.txt");
-        sort(kolegos.begin(), kolegos.end(), KolegosCompareV);
-        size_t dv = 6, dp = 7;
-        for (auto &kolego : kolegos) {
-            if (kolego.vardas.length() > dv) dv = kolego.vardas.length();
-            if (kolego.pavard.length() > dp) dp = kolego.pavard.length();
-        }
-        Isvestis(kolegos, dv, dp);
+        const unsigned int nTestu = 3; // kiek testų failų generuoti
+        GeneruokTestui(nTestu);
     }
     if (pas == '3')
     {
-        const unsigned int nTestu = 5; // kiek testų failų generuoti
-        StartTesting(nTestu);
+
     }
     if (pas == '2'){
         cout << "Studento vardas:" << endl;

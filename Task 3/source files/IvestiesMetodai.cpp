@@ -1,5 +1,5 @@
 
-#include "IvestiesMetodai.h"
+#include "../headers/IvestiesMetodai.h"
 
 void Ivedimas(double *&pazymiai, int &size, double &egz) {
 
