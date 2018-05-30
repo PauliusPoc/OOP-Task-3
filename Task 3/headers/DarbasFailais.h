@@ -22,7 +22,12 @@ using std::list; using std::deque;
 
 
 //void Isvestis(const vector<Studentas> &kolegos, size_t dv, size_t dp);
+/**
+    Kuriami objektai nuskaitant failą (kviečiama iš profiling.cpp StartProfiling funkcijos
+    @param studentai  kolegos vektorius
+    @param s failo, iš kurio bus nuskaitomi duomenys, pavadinimas
+*/
 void Nuskaitymas(vector<Studentas> &studentai, const string &s);
-bool KolegosCompareV(Studentas lhs, Studentas rhs);
+//bool KolegosCompareV(Studentas lhs, Studentas rhs);
 
 #endif //JUXRVHTG_DARBASFAILAIS_H

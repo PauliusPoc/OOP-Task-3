@@ -75,7 +75,7 @@ void GeneruokTestui(unsigned int n) {
 
 //-------------------------------------------------------------------------
 //Profiliavimas 2-a strategija (Studento laikymas tik kategorizuotame faile)
-//Container<Kolegos> kolegos studentas yra trinamas, jeigu studentas yra "geekas"
+//Container<Studentas> kolegos studentas yra trinamas, jeigu studentas yra "geekas"
 //-------------------------------------------------------------------------
 
 template<typename T> void ArKietas(T&koleg, T &geek, bool arVidurkiu) {
