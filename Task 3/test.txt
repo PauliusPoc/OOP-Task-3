@@ -1,0 +1,10 @@
+Vardas1 Pavarde1 4 8 6 2 5 6
+Vardas2 Pavarde2 9 9 9 9 9 10
+Vardas3 Pavarde3 9 9 10 9 9 10
+Vardas4 Pavarde4 9 9 9 9 9 10
+Vardas5 Pavarde5 8 9 9 9 9 10
+Vardas6 Pavarde6 5 9 6 9 10 10
+Vardas7 Pavarde7 9 2 4 9 3 10
+Vardas8 Pavarde8 6 9 9 5 3 10
+Vardas9 Pavarde9 10 10 1 1 1 10
+Vardas10 Pavarde10 1 1 7 10 4 10
